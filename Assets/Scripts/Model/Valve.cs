@@ -59,6 +59,8 @@ public sealed class Valve : MonoBehaviour, IExecutable
             objectToRotate.transform.Rotate(0, maxAngle, 0);
             _turnedAngle = maxAngle;
         }
+
+        ServiceLocatorMonoBehaviour.GetService<SimulationController>().AddExecutable(this);
     }
 
     private void OnMouseDown()
