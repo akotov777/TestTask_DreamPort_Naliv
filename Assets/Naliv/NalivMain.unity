@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &7449983 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7047967763470005990, guid: 36df760a3580fd841b480d4d9aa2c0ed, type: 3}
-  m_PrefabInstance: {fileID: 427674698}
-  m_PrefabAsset: {fileID: 0}
 --- !u!850595691 &90412137
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -220,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAngle: 720
-  objectToRotate: {fileID: 1283420973}
+  objectToRotate: {fileID: 1825512657}
   isClosedOnStart: 1
 --- !u!1001 &427674698
 PrefabInstance:
@@ -361,7 +356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546752234}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -8, y: 1.6, z: 0}
+  m_LocalPosition: {x: -2.73, y: 1.6, z: -4.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1246006773}
@@ -482,11 +477,6 @@ Transform:
   m_Father: {fileID: 546752237}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1283420973 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7047967763470005990, guid: 36df760a3580fd841b480d4d9aa2c0ed, type: 3}
-  m_PrefabInstance: {fileID: 6696303121318106583}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1542580430
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +569,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -305.13, z: 0}
+--- !u!1 &1825512657 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2102096973048644305, guid: 36df760a3580fd841b480d4d9aa2c0ed, type: 3}
+  m_PrefabInstance: {fileID: 6696303121318106583}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2019812321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2102096973048644305, guid: 36df760a3580fd841b480d4d9aa2c0ed, type: 3}
+  m_PrefabInstance: {fileID: 427674698}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2071531235 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3563830324087412944, guid: 36df760a3580fd841b480d4d9aa2c0ed, type: 3}
@@ -597,8 +597,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAngle: 720
-  objectToRotate: {fileID: 7449983}
+  objectToRotate: {fileID: 2019812321}
   isClosedOnStart: 1
+--- !u!65 &2071531238
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071531235}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.22, y: 0.05, z: 0.22}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1246148815369164648
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,6 +709,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7642792019034820259}
     m_Modifications:
+    - target: {fileID: 8533206101921926298, guid: 36df760a3580fd841b480d4d9aa2c0ed, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8815556082547939118, guid: 36df760a3580fd841b480d4d9aa2c0ed, type: 3}
       propertyPath: m_Name
       value: Valve 1
