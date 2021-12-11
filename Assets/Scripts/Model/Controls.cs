@@ -15,4 +15,17 @@ public static class Controls
             return Input.GetMouseButton(0);
         }
     }
+
+    public static class Movement
+    {
+        public static float GetVerticalAxis()
+        {
+            return Input.GetAxis("Vertical");
+        }
+
+        public static float GetHorizontalAxis()
+        {
+            return Input.GetAxis("Horizontal");
+        }
+    }
 }
