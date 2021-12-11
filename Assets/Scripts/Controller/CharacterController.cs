@@ -17,10 +17,12 @@ public sealed class CharacterController : IExecutable
     {
         _camera = Camera.main;
 
-        _executableFeatures = new ExecutableCharacterFeature[1];
-        var movement = new FirstPersonMovement(_camera.transform);
+        _executableFeatures = new ExecutableCharacterFeature[2];
+        var movement = new FirstPersonMovementFeature(_camera.transform);
+        var looking = new FirstPersonLookingFeature();
 
         _executableFeatures[0] = movement;
+        _executableFeatures[1] = looking;
     }
 
     #endregion

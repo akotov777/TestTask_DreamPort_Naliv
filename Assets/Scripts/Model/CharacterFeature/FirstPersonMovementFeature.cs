@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-public sealed class FirstPersonMovement : ExecutableCharacterFeature
+public sealed class FirstPersonMovementFeature : ExecutableCharacterFeature
 {
     #region Fields
 
@@ -13,7 +13,7 @@ public sealed class FirstPersonMovement : ExecutableCharacterFeature
 
     #region ClassLifeCycles
 
-    public FirstPersonMovement(Transform charater)
+    public FirstPersonMovementFeature(Transform charater)
     {
         _character = charater;
         _settings = Resources.Load<CharacterMovementSettings>(Constants.ResourcesPaths.Data.PlayerMovementSettings);
@@ -29,14 +29,16 @@ public sealed class FirstPersonMovement : ExecutableCharacterFeature
         if (!IsActive)
             return;
 
+        Vector3 forward = Quaternion.AngleAxis(-_character.rotation.eulerAngles.x,
+                                                _character.right) 
+                          * _character.forward;
 
-        Vector3 desiredMove = _character.forward * Controls.Movement.GetVerticalAxis()
+        Vector3 desiredMove = forward * Controls.Movement.GetVerticalAxis()
                               +_character.right * Controls.Movement.GetHorizontalAxis();
 
         var moveDirection = desiredMove * _settings.movementSpeed;
 
-        _character.Translate(desiredMove);
-       // _characterController.Move(_moveDirection * Time.deltaTime);
+        _character.Translate(moveDirection, Space.World);
     }
 
     #endregion

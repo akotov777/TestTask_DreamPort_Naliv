@@ -28,4 +28,22 @@ public static class Controls
             return Input.GetAxis("Horizontal");
         }
     }
+
+    public static class Looking
+    {
+        public static bool LookingIsActive()
+        {
+            return Input.GetMouseButton(1);
+        }
+
+        public static float LookingXAxis()
+        {
+            return Input.GetAxis("Mouse X");
+        }
+
+        public static float LookingYAxis()
+        {
+            return Input.GetAxis("Mouse Y");
+        }
+    }
 }
