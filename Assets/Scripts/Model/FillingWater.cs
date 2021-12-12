@@ -26,6 +26,7 @@ public sealed class FillingWater : RatioProviderBehaviour, IExecutable
         _perFlowAmount = new float[_waterFlows.Length];
         _perFlowPercentage = new float[_waterFlows.Length];
         _perTickAmount = new float[_waterFlows.Length];
+        ChangeWaterLevel();
     }
 
     #endregion
@@ -35,8 +36,17 @@ public sealed class FillingWater : RatioProviderBehaviour, IExecutable
 
     private void ChangeWaterLevel()
     {
-        var scale = _objectToScale.transform.localScale;
-        scale.x = GetRatio();
+        float oldX = _objectToScale.transform.localScale.x;
+        float oldZ = _objectToScale.transform.localScale.z;
+        _objectToScale.transform.localScale = new Vector3(oldX, GetRatio(), oldZ);
+    }
+
+    private void CalculatePerFlowPercentage()
+    {
+        for (int i = 0; i < _waterFlows.Length; i++)
+        {
+            _perFlowPercentage[i] = _perFlowAmount[i] / _maxFillAmount;
+        }
     }
 
     #endregion
@@ -46,12 +56,15 @@ public sealed class FillingWater : RatioProviderBehaviour, IExecutable
 
     public void Execute()
     {
+        if (_currentFillAmount >= _maxFillAmount)
+            return;
+
         float addAmount = 0;
         for (int i = 0; i < _waterFlows.Length; i++)
         {
             _perTickAmount[i] = _waterFlows[i].CurrentFlow * Time.deltaTime;
             _perFlowAmount[i] += _perTickAmount[i];
-            addAmount += _perFlowAmount[i];
+            addAmount += _perTickAmount[i];
         }
 
         if (_currentFillAmount + addAmount > _maxFillAmount)
@@ -62,14 +75,15 @@ public sealed class FillingWater : RatioProviderBehaviour, IExecutable
             {
                 _perFlowAmount[i] -= _perTickAmount[i] * ratio;
             }
+            _currentFillAmount += beforeOverflow;
             OnOverFlow.Invoke();
         }
-        _currentFillAmount += addAmount;
-
-        for (int i = 0; i < _waterFlows.Length; i++)
+        else
         {
-            _perFlowPercentage[i] = _perFlowAmount[i] / _maxFillAmount;
+            _currentFillAmount += addAmount;
         }
+
+        CalculatePerFlowPercentage();
 
         ChangeWaterLevel();
     }
