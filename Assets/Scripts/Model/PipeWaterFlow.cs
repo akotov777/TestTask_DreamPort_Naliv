@@ -59,7 +59,7 @@ public sealed class PipeWaterFlow : RatioProviderBehaviour
 
     public override float GetRatio()
     {
-        return _closingRatioProvider.GetRatio();
+        return 1.0f - _closingRatioProvider.GetRatio();
     }
 
     #endregion
