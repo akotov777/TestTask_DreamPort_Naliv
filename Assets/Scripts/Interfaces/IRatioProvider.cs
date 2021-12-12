@@ -3,6 +3,6 @@
 
 public interface IRatioProvider
 {
-    Action OnRatioChanged { get; }
+    Action OnRatioChanged { get; set; }
     float GetRatio();
 }

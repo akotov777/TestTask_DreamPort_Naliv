@@ -2,14 +2,13 @@
 using System;
 
 
-public sealed class Valve : MonoBehaviour, IExecutable, IRatioProvider
+public sealed class Valve : RatioProviderBehaviour, IExecutable
 {
     #region Fields
 
     [SerializeField, Min(1)] private float _maxAngle = 720;
     [SerializeField] private GameObject _objectToRotate;
     [SerializeField] private bool _isClosedOnStart;
-    private Action _onRatioChanged;
     private Vector3 _previousPosition;
     private Vector3 _currentPosition;
     private bool _hitFirstTime = true;
@@ -62,7 +61,6 @@ public sealed class Valve : MonoBehaviour, IExecutable, IRatioProvider
             _turnedAngle = _maxAngle;
         }
 
-        _onRatioChanged = () => { };
         ServiceLocatorMonoBehaviour.GetService<SimulationController>().AddExecutable(this);
     }
 
@@ -133,15 +131,7 @@ public sealed class Valve : MonoBehaviour, IExecutable, IRatioProvider
 
     #region IRatioProvider
 
-    public Action OnRatioChanged
-    {
-        get
-        {
-            return _onRatioChanged;
-        }
-    }
-
-    public float GetRatio()
+    public override float GetRatio()
     {
         return ClosingRatio;
     }

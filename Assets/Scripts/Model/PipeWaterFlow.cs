@@ -2,17 +2,16 @@
 using System;
 
 
-public sealed class PipeWaterFlow : MonoBehaviour, IRatioProvider
+public sealed class PipeWaterFlow : RatioProviderBehaviour
 {
     #region Fields
 
-    [SerializeField, SerializeReference] private IRatioProvider _closingRatioProvider;
+    [SerializeField] private RatioProviderBehaviour _closingRatioProvider;
     [SerializeField] private ParticleSystem _particles;
     [SerializeField] private float _minRateOverTime;
     [SerializeField] private float _maxRateOverTime;
     [SerializeField] private float _minFlowSpeed;
     [SerializeField] private float _maxFlowSpeed;
-    private Action _onRatioChanged;
 
     #endregion
 
@@ -21,7 +20,7 @@ public sealed class PipeWaterFlow : MonoBehaviour, IRatioProvider
 
     private void Start()
     {
-        _onRatioChanged = RatioChanged;
+        _closingRatioProvider.OnRatioChanged = RatioChanged;
     }
 
     #endregion
@@ -58,12 +57,7 @@ public sealed class PipeWaterFlow : MonoBehaviour, IRatioProvider
 
     #region IRatioProvider
 
-    public Action OnRatioChanged
-    {
-        get { return _onRatioChanged; }
-    }
-
-    public float GetRatio()
+    public override float GetRatio()
     {
         return _closingRatioProvider.GetRatio();
     }
