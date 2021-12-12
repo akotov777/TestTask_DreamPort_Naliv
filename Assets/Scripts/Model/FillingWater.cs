@@ -9,9 +9,10 @@ public sealed class FillingWater : RatioProviderBehaviour, IExecutable
     [SerializeField] private float _maxFillAmount;
     [SerializeField] private PipeWaterFlow[] _waterFlows;
     [SerializeField] private GameObject _objectToScale;
+    [SerializeField] private Renderer _waterRenderer;
     public Action OnOverFlow = () => { };
     private float _currentFillAmount;
-    private float[] _perFlowPercentage;
+    private float[] _perFlowRatio;
     private float[] _perFlowAmount;
     private float[] _perTickAmount;
 
@@ -24,9 +25,10 @@ public sealed class FillingWater : RatioProviderBehaviour, IExecutable
     {
         ServiceLocatorMonoBehaviour.GetService<SimulationController>().AddExecutable(this);
         _perFlowAmount = new float[_waterFlows.Length];
-        _perFlowPercentage = new float[_waterFlows.Length];
+        _perFlowRatio = new float[_waterFlows.Length];
         _perTickAmount = new float[_waterFlows.Length];
         ChangeWaterLevel();
+
     }
 
     #endregion
@@ -41,11 +43,24 @@ public sealed class FillingWater : RatioProviderBehaviour, IExecutable
         _objectToScale.transform.localScale = new Vector3(oldX, GetRatio(), oldZ);
     }
 
+    private void ChangeWaterColor()
+    {
+        Color newColor = new Color();
+        float alpha = _waterRenderer.sharedMaterial.color.a;
+        for (int i = 0; i < _waterFlows.Length; i++)
+        {
+            newColor += _waterFlows[i].FluidColor * _perFlowRatio[i];
+        }
+
+        newColor.a = alpha;
+        _waterRenderer.material.color = newColor;
+    }
+
     private void CalculatePerFlowPercentage()
     {
         for (int i = 0; i < _waterFlows.Length; i++)
         {
-            _perFlowPercentage[i] = _perFlowAmount[i] / _maxFillAmount;
+            _perFlowRatio[i] = _perFlowAmount[i] / _currentFillAmount;
         }
     }
 
@@ -86,6 +101,7 @@ public sealed class FillingWater : RatioProviderBehaviour, IExecutable
         CalculatePerFlowPercentage();
 
         ChangeWaterLevel();
+        ChangeWaterColor();
     }
 
     #endregion

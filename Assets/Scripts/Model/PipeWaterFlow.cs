@@ -13,6 +13,7 @@ public sealed class PipeWaterFlow : RatioProviderBehaviour
     [SerializeField] private float _minFlowSpeed;
     [SerializeField] private float _maxFlowSpeed;
     [SerializeField] private float _maxFlowAmount;
+    [SerializeField] private Color _fluidColor;
 
     #endregion
 
@@ -24,6 +25,14 @@ public sealed class PipeWaterFlow : RatioProviderBehaviour
         get { return GetRatio() * _maxFlowAmount; }
     }
 
+    public Color FluidColor
+    {
+        get
+        {
+            return _fluidColor;
+        }
+    }
+
     #endregion
 
 
@@ -32,6 +41,8 @@ public sealed class PipeWaterFlow : RatioProviderBehaviour
     private void Start()
     {
         _closingRatioProvider.OnRatioChanged = RatioChanged;
+        var main = _particles.main;
+        main.startColor = _fluidColor;
     }
 
     #endregion
