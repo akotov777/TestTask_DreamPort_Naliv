@@ -12,6 +12,17 @@ public sealed class PipeWaterFlow : RatioProviderBehaviour
     [SerializeField] private float _maxRateOverTime;
     [SerializeField] private float _minFlowSpeed;
     [SerializeField] private float _maxFlowSpeed;
+    [SerializeField] private float _maxFlowAmount;
+
+    #endregion
+
+
+    #region Properties
+
+    public float CurrentFlow
+    {
+        get { return GetRatio() * _maxFlowAmount; }
+    }
 
     #endregion
 
