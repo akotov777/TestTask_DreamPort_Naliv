@@ -15,4 +15,35 @@ public static class Controls
             return Input.GetMouseButton(0);
         }
     }
+
+    public static class Movement
+    {
+        public static float GetVerticalAxis()
+        {
+            return Input.GetAxis("Vertical");
+        }
+
+        public static float GetHorizontalAxis()
+        {
+            return Input.GetAxis("Horizontal");
+        }
+    }
+
+    public static class Looking
+    {
+        public static bool LookingIsActive()
+        {
+            return Input.GetMouseButton(1);
+        }
+
+        public static float LookingXAxis()
+        {
+            return Input.GetAxis("Mouse X");
+        }
+
+        public static float LookingYAxis()
+        {
+            return Input.GetAxis("Mouse Y");
+        }
+    }
 }

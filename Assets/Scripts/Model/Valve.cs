@@ -95,7 +95,7 @@ public sealed class Valve : MonoBehaviour, IExecutable
     {
         if (_isClicked && _hitFirstTime)
         {
-            _previousPosition = Intersection;
+            _previousPosition = transform.InverseTransformPoint(Intersection);
             _hitFirstTime = false;
         }
         else if (_isClicked)

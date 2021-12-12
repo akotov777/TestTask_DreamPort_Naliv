@@ -13,6 +13,12 @@ public sealed class SimulationController : MonoBehaviour
 
     #region UnityMethods
 
+    private void Start()
+    {
+        var charController = new CharacterController();
+        _executables.Add(charController);
+    }
+
     private void Update()
     {
         Execute();
