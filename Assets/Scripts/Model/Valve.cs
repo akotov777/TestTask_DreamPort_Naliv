@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
+using System;
 
 
-public sealed class Valve : MonoBehaviour, IExecutable
+public sealed class Valve : RatioProviderBehaviour, IExecutable
 {
     #region Fields
 
-    [SerializeField, Min(1)] private float maxAngle = 720;
-    [SerializeField] private GameObject objectToRotate;
-    [SerializeField] private bool isClosedOnStart;
+    [SerializeField, Min(1)] private float _maxAngle = 720;
+    [SerializeField] private GameObject _objectToRotate;
+    [SerializeField] private bool _isClosedOnStart;
     private Vector3 _previousPosition;
     private Vector3 _currentPosition;
     private bool _hitFirstTime = true;
@@ -24,7 +25,7 @@ public sealed class Valve : MonoBehaviour, IExecutable
     {
         get
         {
-            return _turnedAngle / maxAngle;
+            return _turnedAngle / _maxAngle;
         }
     }
 
@@ -54,10 +55,10 @@ public sealed class Valve : MonoBehaviour, IExecutable
 
     private void Start()
     {
-        if (isClosedOnStart)
+        if (_isClosedOnStart)
         {
-            objectToRotate.transform.Rotate(0, maxAngle, 0);
-            _turnedAngle = maxAngle;
+            _objectToRotate.transform.Rotate(0, _maxAngle, 0);
+            _turnedAngle = _maxAngle;
         }
 
         ServiceLocatorMonoBehaviour.GetService<SimulationController>().AddExecutable(this);
@@ -105,23 +106,34 @@ public sealed class Valve : MonoBehaviour, IExecutable
             _currentPosition = transform.InverseTransformPoint(_currentPosition);
 
             _angle = GetAngleInDegrees;
-            if (_turnedAngle + _angle > maxAngle)
+            if (_turnedAngle + _angle > _maxAngle)
             {
-                _angle = maxAngle - _turnedAngle;
+                _angle = _maxAngle - _turnedAngle;
             }
             else if (_turnedAngle + _angle < 0)
             {
                 _angle = -_turnedAngle;
             }
 
-            objectToRotate.transform.Rotate(0, _angle, 0);
+            _objectToRotate.transform.Rotate(0, _angle, 0);
             _turnedAngle += _angle;
             _previousPosition = _currentPosition;
+            _onRatioChanged.Invoke();
         }
         else if (!Controls.Interaction.DragButtonHeldDown())
         {
             _hitFirstTime = true;
         }
+    }
+
+    #endregion
+
+
+    #region IRatioProvider
+
+    public override float GetRatio()
+    {
+        return ClosingRatio;
     }
 
     #endregion
