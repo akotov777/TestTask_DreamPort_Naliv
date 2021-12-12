@@ -45,9 +45,8 @@ public class FirstPersonLookingFeature : ExecutableCharacterFeature
             return;
         if (!Controls.Looking.LookingIsActive())
             return;
-        Cursor.lockState = CursorLockMode.Locked;
+
         LookRotation();
-        Cursor.lockState = CursorLockMode.None;
     }
 
     #endregion
